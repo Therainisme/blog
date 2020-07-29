@@ -1,7 +1,3 @@
-```
-title:AOP之美丽的注解
-```
-
 # AOP之美丽的注解
 
 如果我们需要在一个Service中多次检测某个实例的值是否合法
@@ -17,7 +13,7 @@ title:AOP之美丽的注解
 ```java
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UserPropertyRequired {
+public @interface UserFieldRequired {
     boolean idRequired() default false;
     boolean nameRequired() default false;
     boolean passwordRequired() default false;
@@ -43,10 +39,10 @@ public @interface UserPropertyRequired {
 public class ValidUserNameAspect {
 
     @Pointcut("@annotation(com.therainisme.magicwood.aspect.user.UserPropertyRequired)")
-    public void validUserProperty() {
+    public void thePointCut() {
     }
 
-    @Before("validUserProperty()")
+    @Before("thePointCut()")
     public void doBefore(JoinPoint joinPoint) {
         UserDTO userDTO = (UserDTO) joinPoint.getArgs()[0];
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
@@ -107,7 +103,7 @@ public class UserService{
     @Resource
     private UserMapper userMapper;
 
-    @UserPropertyRequired(nameRequired = true, passwordRequired = true, emailRequired = true)
+    @UserFieldRequired(nameRequired = true, passwordRequired = true, emailRequired = true)
     public User register(User user) {
         user.setToken(UUID.randomUUID().toString().replace("-", "").toUpperCase());
         user.setGmtCreate(new Date());
