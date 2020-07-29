@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Spring Boot | MailSender"
+description: "There's nothing here."
+---
+
 pom
 ```xml
 <dependency>

@@ -1,5 +1,7 @@
 ---
 layout: default
+title: "Therainisme's Cabin"
+description: "There's nothing here."
 ---
 
 # Index

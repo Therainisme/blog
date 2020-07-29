@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Spring Boot | AOP之美丽的注解"
+description: "There's nothing here."
+---
+
 # AOP之美丽的注解
 
 如果我们需要在一个Service中多次检测某个实例的值是否合法
