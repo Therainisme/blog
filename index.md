@@ -8,7 +8,7 @@ layout: default
 
 [AOP Handle Exception](https://therainisme.github.io/blog/docs/java/SpringBoot/AOP-HandleException)：通过AOP进行安全检测
 
-[AOP Strange Annotation](https://therainisme.github.io/blog/docs/java/SpringBoot/AOP-Strange Annotation)：通过AOP修改实例字段
+[AOP Strange Annotation](https://therainisme.github.io/blog/docs/java/SpringBoot/AOP-StrangeAnnotation)：通过AOP修改实例字段
 
 [SpringBoot-UploadFile](https://therainisme.github.io/blog/docs/java/SpringBoot/UploadFile)：通过Spring Boot上传文件
 
