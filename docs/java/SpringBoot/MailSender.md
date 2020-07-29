@@ -26,7 +26,7 @@ spring.mail.default-encoding=UTF-8
 
 之后就可以直接发送邮件了  
 
-Text里面可以是Html[格式]()
+Text里面可以是Html格式
 
 ```java
 @SpringBootTest                                             
