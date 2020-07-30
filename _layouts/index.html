@@ -53,7 +53,7 @@
               {% for essay in type.essayList %}
                 <p>
                   <blockquote style="display: inline-block;">
-                  <a href="{{ '/docs/' | append: post.language | append: '/' | append: type.name | append: '/' | append: essay.md_name}}">{{essay.title}}</a></blockquote>：
+                  <a style="outline: none;" href="{{ '/docs/' | append: post.language | append: '/' | append: type.name | append: '/' | append: essay.md_name}}">{{essay.title}}</a></blockquote>：
                   <a class="description" href="{{ '/docs/' | append: post.language | append: '/' | append: type.name | append: '/' | append: essay.md_name}}">{{essay.description}} </a>
                   <span style="float: right;">{{essay.date}}</span>
                 </p>
