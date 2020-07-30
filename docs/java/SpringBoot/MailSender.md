@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Spring Boot | MailSender"
-description: "There's nothing here."
+description: "通过Sprint Boot发送邮件"
 ---
 
 pom

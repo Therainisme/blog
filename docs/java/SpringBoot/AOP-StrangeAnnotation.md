@@ -1,10 +1,8 @@
 ---
 layout: default
 title: "Spring Boot | AOP的奇怪应用"
-description: "There's nothing here."
+description: "通过AOP修改实例字段"
 ---
-
-# AOP的奇怪应用
 
 在设计接口的时候，如果返还的实例中，不想让某个实例的某个字段返还，可以将其设为`null`，然后在SpringBoot的配置文件中写上`spring.jackson.default-property-inclusion=non_null`
 

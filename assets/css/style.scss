@@ -20,3 +20,11 @@ hr{
     background: #ffeaa7;
     height: 1px;
 }
+
+.description{
+    color: #f0e7d5;
+}
+
+.description:hover{
+    filter: brightness(1.1);/*高亮*/
+}

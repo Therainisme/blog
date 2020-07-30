@@ -1,0 +1,45 @@
+I"�<p>pom</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+   <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-mail<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="nt">&lt;dependency&gt;</span>
+   <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-thymeleaf<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+<p>这里的密码password不是密码</p>
+
+<p>是授权码 一般都在邮箱中 设置-账户-SMTP服务</p>
+
+<p>点击开启即可获取</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">spring.mail.host</span><span class="p">=</span><span class="s">smtp.exmail.qq.com</span>
+<span class="py">spring.mail.username</span><span class="p">=</span><span class="s">me@Therainisme.com</span>
+<span class="py">spring.mail.password</span><span class="p">=</span><span class="s">XXXXXXX</span>
+<span class="py">spring.mail.protocol</span><span class="p">=</span><span class="s">smtp</span>
+<span class="py">spring.mail.default-encoding</span><span class="p">=</span><span class="s">UTF-8</span>
+</code></pre></div></div>
+
+<p>之后就可以直接发送邮件了</p>
+
+<p>Text里面可以是Html格式</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootTest</span>                                             
+<span class="kd">class</span> <span class="nc">ForecastSystemServerApplicationTests</span> <span class="o">{</span>                
+    <span class="nd">@Autowired</span>                                              
+    <span class="kd">private</span> <span class="nc">JavaMailSender</span> <span class="n">javaMailSender</span><span class="o">;</span>                  
+                                                            
+    <span class="nd">@Test</span>                                                   
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSend</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">MessagingException</span> <span class="o">{</span>      
+        <span class="nc">SimpleMailMessage</span> <span class="n">message</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SimpleMailMessage</span><span class="o">();</span>
+        <span class="n">message</span><span class="o">.</span><span class="na">setFrom</span><span class="o">(</span><span class="s">"me@Therainisme.com"</span><span class="o">);</span>               
+        <span class="n">message</span><span class="o">.</span><span class="na">setTo</span><span class="o">(</span><span class="s">"me@VisualDust.com"</span><span class="o">);</span>                 
+        <span class="n">message</span><span class="o">.</span><span class="na">setSubject</span><span class="o">(</span><span class="s">"This is a title"</span><span class="o">);</span>                     
+        <span class="n">message</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"This is a content"</span><span class="o">);</span>                       
+        <span class="n">javaMailSender</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>                       
+    <span class="o">}</span>                                                       
+<span class="o">}</span>                                                               
+</code></pre></div></div>
+:ET

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: index
 title: "Therainisme's Cabin"
 description: "There's nothing here."
 ---
@@ -15,3 +15,5 @@ description: "There's nothing here."
 [SpringBoot-UploadFile](http://blog.therainisme.com/docs/java/SpringBoot/UploadFile)：通过Spring Boot上传文件
 
 [SpringBoot-MailSender](http://blog.therainisme.com/docs/java/SpringBoot/MailSender)：通过Sprint Boot发送邮件
+
+bundle exec jekyll serve

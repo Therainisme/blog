@@ -1,0 +1,130 @@
+I"0<h1 id="aop之美丽的注解">AOP之美丽的注解</h1>
+
+<p>如果我们需要在一个Service中多次检测某个实例的值是否合法</p>
+
+<p>按照以往的习惯，都是写个Util或者其他的类似与检测实例是否合法的类，然后再Service中不断的反复调用它</p>
+
+<p>现在我们只需要自定义一个注解，利用SpringBoot提供的AOP注解，即可简易的实现</p>
+
+<p>以用户的注册为例子：</p>
+
+<h3 id="第一步我们可以先自定义一个专用的注解">第一步：我们可以先自定义一个专用的注解</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">(</span><span class="nc">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">)</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">UserFieldRequired</span> <span class="o">{</span>
+    <span class="kt">boolean</span> <span class="nf">idRequired</span><span class="o">()</span> <span class="k">default</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="kt">boolean</span> <span class="nf">nameRequired</span><span class="o">()</span> <span class="k">default</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="kt">boolean</span> <span class="nf">passwordRequired</span><span class="o">()</span> <span class="k">default</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="kt">boolean</span> <span class="nf">emailRequired</span><span class="o">()</span> <span class="k">default</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="kt">boolean</span> <span class="nf">emailOrNameRequired</span><span class="o">()</span> <span class="k">default</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>@Target</p>
+</blockquote>
+
+<p>注解可标记的目标，样例规定了标记的是一个方法</p>
+
+<blockquote>
+  <p>@Retention</p>
+</blockquote>
+
+<p>定义标记注解的生命周期，样例规定了该注解能在运行期间一直存活</p>
+
+<h3 id="第二步写一个扫描此注解的aspect类">第二步：写一个扫描此注解的Aspect类</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Aspect</span>
+<span class="nd">@Order</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ValidUserNameAspect</span> <span class="o">{</span>
+
+    <span class="nd">@Pointcut</span><span class="o">(</span><span class="s">"@annotation(com.therainisme.magicwood.aspect.user.UserPropertyRequired)"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">thePointCut</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Before</span><span class="o">(</span><span class="s">"thePointCut()"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doBefore</span><span class="o">(</span><span class="nc">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">UserDTO</span> <span class="n">userDTO</span> <span class="o">=</span> <span class="o">(</span><span class="nc">UserDTO</span><span class="o">)</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getArgs</span><span class="o">()[</span><span class="mi">0</span><span class="o">];</span>
+        <span class="nc">MethodSignature</span> <span class="n">signature</span> <span class="o">=</span> <span class="o">(</span><span class="nc">MethodSignature</span><span class="o">)</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">();</span>
+        <span class="nc">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="n">signature</span><span class="o">.</span><span class="na">getMethod</span><span class="o">();</span>
+        <span class="nc">UserPropertyRequired</span> <span class="n">userPropertyRequired</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="nc">UserPropertyRequired</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">userPropertyRequired</span><span class="o">.</span><span class="na">idRequired</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">userDTO</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">AspectException</span><span class="o">(</span><span class="nc">CustomExceptionEnum</span><span class="o">.</span><span class="na">USER_INFO_INVALID</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">userPropertyRequired</span><span class="o">.</span><span class="na">passwordRequired</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">userDTO</span><span class="o">.</span><span class="na">getPassword</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">AspectException</span><span class="o">(</span><span class="nc">CustomExceptionEnum</span><span class="o">.</span><span class="na">USER_INFO_INVALID</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">userPropertyRequired</span><span class="o">.</span><span class="na">emailOrNameRequired</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">userDTO</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">userDTO</span><span class="o">.</span><span class="na">getEmail</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">AspectException</span><span class="o">(</span><span class="nc">CustomExceptionEnum</span><span class="o">.</span><span class="na">USER_INFO_INVALID</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">userPropertyRequired</span><span class="o">.</span><span class="na">nameRequired</span><span class="o">())</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">userDTO</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">AspectException</span><span class="o">(</span><span class="nc">CustomExceptionEnum</span><span class="o">.</span><span class="na">USER_INFO_INVALID</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">userPropertyRequired</span><span class="o">.</span><span class="na">emailRequired</span><span class="o">())</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">userDTO</span><span class="o">.</span><span class="na">getEmail</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">AspectException</span><span class="o">(</span><span class="nc">CustomExceptionEnum</span><span class="o">.</span><span class="na">USER_INFO_INVALID</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>@Aspect</p>
+</blockquote>
+
+<p>标记此类是一个切面</p>
+
+<blockquote>
+  <p>@Order</p>
+</blockquote>
+
+<p>设置运行顺序。在有多个切面指向同一个方法的时候，规定他们的执行顺序，数字越小，优先级越大</p>
+
+<blockquote>
+  <p>@Component</p>
+</blockquote>
+
+<p>标记此类归Spring管理</p>
+
+<blockquote>
+  <p>@PointCut</p>
+</blockquote>
+
+<p>样例中的切面是只向一个注解</p>
+
+<blockquote>
+  <p>doBefore()</p>
+</blockquote>
+
+<p>通过JoinPoint获取该方法及该方法的参数，进而获取需要验证的数值</p>
+
+<p>既然方法都获取到了，那么再通过反射来获取注解的内容即可</p>
+
+<p>之后就是验证的事情了</p>
+
+<h3 id="第三步在有需要的地方打上注解">第三步：在有需要的地方打上注解</h3>
+
+<p>尽情享用</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserService</span><span class="o">{</span>
+    <span class="nd">@Resource</span>
+    <span class="kd">private</span> <span class="nc">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
+
+    <span class="nd">@UserFieldRequired</span><span class="o">(</span><span class="n">nameRequired</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">passwordRequired</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">emailRequired</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">User</span> <span class="nf">register</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setToken</span><span class="o">(</span><span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">().</span><span class="na">replace</span><span class="o">(</span><span class="s">"-"</span><span class="o">,</span> <span class="s">""</span><span class="o">).</span><span class="na">toUpperCase</span><span class="o">());</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setGmtCreate</span><span class="o">(</span><span class="k">new</span> <span class="nc">Date</span><span class="o">());</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setGmtModified</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getGmtCreate</span><span class="o">());</span>
+        <span class="n">userMapper</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">user</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>局限性也有，例如对方法传入的参数有确切的规定</p>
+
+:ET
