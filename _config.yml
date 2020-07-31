@@ -25,12 +25,16 @@ postList:
             md_name: AOP-StrangeAnnotation
             description: 通过AOP修改实例字段
             date: 2020-7-30
-  - language: Sql
+  - language: Algorithm
     typeList:
-      - name: Test
+      - name: Basic
         essayList:
-          - title: Upload File
-            md_name: UploadFile
-            description: 通过Spring Boot上传文件
-            date: 2020-7-30
+          - title: 贪心算法
+            md_name: Greedy
+            description: 初步相识贪心算法
+            date: 2020-7-31
+          - title: 动态规划
+            md_name: DynamicProgramming
+            description: 记住你之前做过的事
+            date: 2020-7-31
 
