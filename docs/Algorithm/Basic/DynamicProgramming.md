@@ -6,7 +6,7 @@ description: "记住你之前做过的事"
 
 ### 什么是动态规划
 
-![Quora](https://mmbiz.qpic.cn/mmbiz_png/D67peceibeIT85Ko9IG4Wfk4fNLFQLUru54PZlj8kiaMziaXGRXbEfDApPTTcyibfsB2MgopKnLFricPXdiaxxkjtQOQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![image-20200801123234878](DynamicProgramming.assets/image-20200801123234878.png)
 
 动态规划就是，记住你之前做过的事
 
