@@ -37,4 +37,11 @@ postList:
             md_name: DynamicProgramming
             description: 记住你之前做过的事
             date: 2020-7-31
+      - name: LinearList
+        essayList:
+          - title: 顺序储存结构
+            md_name: BasicAndSequentialStorageStructure
+            description: 由零个或多个数据元素组成的有限序列
+            date: 2020-8-3
+
 
