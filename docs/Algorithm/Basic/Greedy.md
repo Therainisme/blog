@@ -13,7 +13,7 @@ description: "初步相识贪心算法"
 
 > 贪心算法作为五大算法之一，在数据结构中的应用十分广泛。例如：在求最小生成树的 Prim 算法中，挑选的顶点是候选边中权值最小的边的一个端点。在 Kruskal 算法中，每次选取权值最小的边加入集合。在构造霍夫曼树的过程中也是每次选择最小权值的节点构造二叉树。这种每次在执行子问题的求解时，总是选择当前最优的情形，恰好符合贪心的含义。  [@五分钟学算法](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247485458&idx=2&sn=d4bf481c32798a62e44bf3fff577a141&chksm=fa0e6793cd79ee85ca8817826af20431eb451e51b83aa55497ba3b6dbe8d4a8de5d7b048a8fa&scene=21#wechat_redirect)
 
-### 示例：
+## 示例：
 
 有许多物品
 

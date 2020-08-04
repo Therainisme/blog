@@ -8,7 +8,7 @@ description: "通过Spring Boot上传文件"
 
 当你向路径/uploadFile上传一个文件成功后，它会返回一个文件地址
 
-### FileController
+# FileController
 
 用MultipartFile类来接收文件，然后将它转发到Service中
 
@@ -26,7 +26,7 @@ public class FileController {
 }
 ```
 
-### FileService
+# FileService
 
 ```java
 @Service
@@ -52,7 +52,7 @@ public class FileService {
 }
 ```
 
-### MyWebMvcConfigurer
+# MyWebMvcConfigurer
 
 这里是配置本地资源映射路径
 

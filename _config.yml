@@ -12,19 +12,19 @@ postList:
           - title: Upload File
             md_name: UploadFile
             description: 通过Spring Boot上传文件
-            date: 2020-7-30
+            date: 2020-07-30
           - title: MailSender
             md_name: MailSender
             description: 通过Sprint Boot发送邮件
-            date: 2020-7-30
+            date: 2020-07-30
           - title: '@Aspect之美丽的注解'
             md_name: AOP-HandleException
             description: 通过AOP进行安全检测
-            date: 2020-7-30
+            date: 2020-07-30
           - title: '@Aspect的奇怪应用'
             md_name: AOP-StrangeAnnotation
             description: 通过AOP修改实例字段
-            date: 2020-7-30
+            date: 2020-07-30
   - language: Algorithm
     typeList:
       - name: Basic
@@ -32,16 +32,23 @@ postList:
           - title: 贪心算法
             md_name: Greedy
             description: 初步相识贪心算法
-            date: 2020-7-31
+            date: 2020-07-31
           - title: 动态规划
             md_name: DynamicProgramming
             description: 记住你之前做过的事
-            date: 2020-7-31
+            date: 2020-07-31
       - name: LinearList
         essayList:
           - title: 顺序储存结构
             md_name: BasicAndSequentialStorageStructure
             description: 由零个或多个数据元素组成的有限序列
-            date: 2020-8-3
-
+            date: 2020-08-03
+  - language: JavaScript
+    typeList:
+      - name: Unclassified
+        essayList:
+          - title: CommonJS规范
+            md_name: CommonJS
+            description: CommonJS规范是Node.js处理模块的标准
+            date: 2020-08-31
 

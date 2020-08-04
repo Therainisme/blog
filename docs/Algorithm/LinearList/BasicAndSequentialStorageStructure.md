@@ -4,7 +4,7 @@ title: "LinearList | 顺序储存结构"
 description: "由零个或多个数据元素组成的有限序列"
 ---
 
-### 线性表的定义
+# 线性表的定义
 
 > 由零个或多个数据元素组成的有序序列
 
@@ -20,7 +20,7 @@ description: "由零个或多个数据元素组成的有限序列"
 
 > 班级的点名册是线性表
 
-### 线性表的分类
+# 线性表的分类
 
 ```yaml
 线性表：
@@ -33,7 +33,7 @@ description: "由零个或多个数据元素组成的有限序列"
         双向链表
 ```
 
-### 抽象数据类型
+# 抽象数据类型
 
 > 抽象：是指取出事物具有的普遍的本质，是对具体事物的一个概括
 
@@ -62,7 +62,7 @@ Data
 end ADT List
 ```
 
-### 顺序存储结构
+# 顺序存储结构
 
 > 将线性表中的元素一个接一个地储存在一片相邻的储存结构中
 
@@ -83,7 +83,7 @@ struct SeqList{
 };
 ```
 
-### 创建空顺序表
+# 创建空顺序表
 
 ```c++
 PSeqList createNullSeqList(int m) {
@@ -105,7 +105,7 @@ PSeqList createNullSeqList(int m) {
     return NULL;
 }
 ```
-### 判断线性表是否为空
+# 判断线性表是否为空
 
 ```c++
 int isNullSeqList(PSeqList list) { 
@@ -113,7 +113,7 @@ int isNullSeqList(PSeqList list) {
 }
 ```
 
-### 在顺序表中求某元素x的下标
+# 在顺序表中求某元素x的下标
 
 ```c++
 int locateSeq(PSeqList list, DataType x) {
@@ -124,7 +124,7 @@ int locateSeq(PSeqList list, DataType x) {
 }
 ```
 
-### 向顺序表中下标为position的元素之前插入元素x
+# 向顺序表中下标为position的元素之前插入元素x
 
 ```c++
 int insertPreSeq(PSeqList list, int position, DataType x) {
@@ -149,7 +149,7 @@ int insertPreSeq(PSeqList list, int position, DataType x) {
 }
 ```
 
-### 向顺序表中下标为position的元素之之后插入元素x
+# 向顺序表中下标为position的元素之之后插入元素x
 
 ```c++
 int insertPostSeq(PSeqList list, int position, DataType x) {
@@ -174,7 +174,7 @@ int insertPostSeq(PSeqList list, int position, DataType x) {
 }
 ```
 
-### 顺序表中删除下标为p的元素
+# 顺序表中删除下标为p的元素
 
 ```c++
 int deletePostionSeq(PSeqList list, int position){
@@ -192,7 +192,7 @@ int deletePostionSeq(PSeqList list, int position){
     return 1;
 }
 ```
-### 顺序表溢出之后进行的操作
+# 顺序表溢出之后进行的操作
 
 > 可以开辟一个更大的空间，将整个数组拷贝过去，例如先开它个两倍
 
