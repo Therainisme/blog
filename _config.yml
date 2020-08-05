@@ -50,5 +50,11 @@ postList:
           - title: CommonJS规范
             md_name: CommonJS
             description: CommonJS规范是Node.js处理模块的标准
-            date: 2020-08-31
+            date: 2020-08-04
+      - name: Webpack
+        essayList:
+          - title: 安装、快速开始、管理资源
+            md_name: GetStart
+            description: 快速入门到入土
+            date: 2020-08-05
 
