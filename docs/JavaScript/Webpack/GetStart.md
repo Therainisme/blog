@@ -163,7 +163,7 @@ npm install --save-dev file-loader
   module.exports = {
     entry: './src/index.js',
     output: {
-      filename: 'bundle.js',
+      filename: 'index.js',
       path: path.resolve(__dirname, 'dist')
     },
     module: {
