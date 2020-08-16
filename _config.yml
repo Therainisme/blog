@@ -37,6 +37,10 @@ postList:
             md_name: DynamicProgramming
             description: 记住你之前做过的事
             date: 2020-07-31
+          - title: 树状数组
+            md_name: BinaryIndexTree
+            description: 一个查询和修改复杂度都为log(n)的数据结构
+            date: 2020-08-16
       - name: LinearList
         essayList:
           - title: 顺序储存结构
